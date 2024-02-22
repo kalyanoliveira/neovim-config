@@ -4,10 +4,9 @@ vim.g.mapleader = " "
 -- Opening up Netrw (thanks Prime).
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- -- For moving selections around blazzingly fast.
--- -- I won't be using these now, since I kind of use J in visual mode a lot.
--- vim.keymap.set("v", "C-J", ":m '>+1<CR>gv=gv")
--- vim.keymap.set("v", "C-K", ":m '<-2<CR>gv=gv")
+-- For moving selections around blazzingly fast.
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
 -- This makes your cursor stay where it was when you join two lines.
 vim.keymap.set("n", "J", "mzJ`z")
@@ -35,3 +34,6 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 -- We hate Q around here.
 vim.keymap.set("n", "Q", "<nop>")
+
+-- All-file substitute
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
