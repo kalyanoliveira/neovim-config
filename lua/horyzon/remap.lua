@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 
 -- Opening up Netrw (thanks Prime).
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>nrw", vim.cmd.Ex)
 
 -- For moving selections around blazzingly fast.
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
