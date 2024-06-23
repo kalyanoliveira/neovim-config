@@ -74,7 +74,7 @@ vim.keymap.set(
     "<leader>bd",
     [["_d]],
     {
-        desc = "Deletes text into the black hold register."
+        desc = "Deletes text into the black hole register."
     }
 )
 vim.keymap.set(
@@ -82,6 +82,6 @@ vim.keymap.set(
     "<leader>bp",
     [["_dP]],
     {
-        desc = "Puts text over a visual selection and sends the selected text into the black hold register."
+        desc = "Puts text over a visual selection and sends the selected text into the black hole register."
     }
 )
