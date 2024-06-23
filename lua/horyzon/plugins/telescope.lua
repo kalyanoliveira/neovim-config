@@ -28,34 +28,23 @@ return {
             "<C-p>",
             require("telescope.builtin").find_files,
             {
-                desc = "Telescope fuzzy find files"
+                desc = "Fuzzy finds files.",
             }
         )
-
         vim.keymap.set(
             "n",
-            "<leader>tm",
+            "<leader>t",
             vim.cmd.Telescope,
             {
-                desc = "Show all possible Telescope thingies"
+                desc = "Shows all possible things that you can search with Telescope.",
             }
         )
-
         vim.keymap.set(
             "n",
-            "<leader>tc",
-            require("telescope.builtin").commands,
-            {
-                desc = "Telescope fuzzy find commands"
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>tf",
+            "<leader>/",
             require("telescope.builtin").current_buffer_fuzzy_find,
             {
-                desc = "Telescope fuzzy find over current buffer"
+                desc = "Fuzzy finds over current buffer.",
             }
         )
 

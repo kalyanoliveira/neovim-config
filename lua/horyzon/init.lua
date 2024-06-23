@@ -1,3 +1,4 @@
 require("horyzon.keymap")
-require("horyzon.lazy")
 require("horyzon.opt")
+require("horyzon.autocmd")
+require("horyzon.lazy")

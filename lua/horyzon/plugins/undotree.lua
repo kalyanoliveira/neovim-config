@@ -7,7 +7,7 @@ return {
             "<leader>u",
             vim.cmd.UndotreeToggle,
             {
-                desc = "Toggle undotree",
+                desc = "Toggle undotree.",
             }
         )
     end

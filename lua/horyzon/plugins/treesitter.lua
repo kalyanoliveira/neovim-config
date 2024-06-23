@@ -15,13 +15,15 @@ return {
             "python",
         },
 
-        -- No need to install all parser synchronously.
+        -- No need to install all parsers synchronously.
         sync_install = false,
 
-        -- Let's make sure to automatically install parsers for languages that
-        -- are not already in `ensure_installed`.
+        -- Automatically installs parsers for languages that are not already in
+        -- `ensure_installed`.
         auto_install = true,
 
+        -- Enables treesitter-based highlight, and removes vim's own
+        -- highlighting for ruby files.
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = {
@@ -29,6 +31,7 @@ return {
             }
         },
 
+        -- Enables treesitter-based indenting, except for for ruby files.
         indent = {
             enable = true,
             disable = {
@@ -39,7 +42,7 @@ return {
 
     config = function(_, opts)
         -- Use git repos for downloading parsers.
-        require('nvim-treesitter.install').prefer_git = true
+        require("nvim-treesitter.install").prefer_git = true
 
         require("nvim-treesitter.configs").setup(opts)
     end,
