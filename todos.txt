@@ -1,4 +1,0 @@
-- add git fugitive
-- check out gitworktrees 
-- start creating a remote version of the config (for use in ssh)
-- integrate obsidian.nvim in a separate branch
