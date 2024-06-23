@@ -7,19 +7,15 @@ return {
     dependencies = {
         {
             "3rd/image.nvim",
-
             dependencies = {
                 {
                     "vhyrro/luarocks.nvim",
-
                     priority = 1001,
-
                     opts = {
                         rocks = { "magick", },
                     },
                 },
             },
-
             opts = {
                 -- These are the recommended options that need to be changed
                 -- (from their default values) for a good `molten-nvim`
@@ -30,10 +26,8 @@ return {
                 max_height_window_percentage = math.huge,
                 window_overlap_clear_enabled = true,
             },
-
             config = function(_, opts)
                 require("image").setup(opts)
-
                 vim.keymap.set(
                     "n",
                     "<leader>ic",
@@ -48,7 +42,6 @@ return {
 
         {
             "GCBallesteros/jupytext.nvim",
-
             opts = {
                 style = "markdown",
                 output_extension = "md",
@@ -58,7 +51,6 @@ return {
 
         {
             "jmbuhr/otter.nvim",
-
             dependencies = {
                 {
                     "neovim/nvim-lspconfig",
@@ -66,10 +58,8 @@ return {
                     "hrsh7th/nvim-cmp",
                 },
             },
-
             config = function()
                 require("otter").setup({})
-
                 local cmpconfig = require("cmp").get_config()
                 table.insert(
                     cmpconfig.sources,
@@ -78,7 +68,6 @@ return {
                     }
                 )
                 require("cmp").setup(cmpconfig)
-
                 vim.keymap.set(
                     "n",
                     "<localleader>oa",
@@ -144,11 +133,33 @@ return {
                     }
                 )
             end
+        },
+
+        {
+            "quarto-dev/quarto-nvim",
+            opts = {
+                lspFeatures = {
+                    chunks = "all"
+                },
+                codeRunner = {
+                    enabled = true,
+                    default_method = "molten"
+                },
+                keymap = {
+                    hover = "K",
+                    definition = "gd",
+                    type_definition = "gD",
+                    rename = "<leader>r",
+                    format = false,
+                    references = "gr",
+                    document_symbols = "sds",
+                }
+            }
         }
     },
 
-    -- -- Does not work! Run this command manually.
-    -- build = ":UpdateRemotePlugins",
+    -- Might not work! Run this command manually if so.
+    build = ":UpdateRemotePlugins",
 
     init = function()
         -- Points neovim to which python3 it should use, which has the correct
@@ -235,198 +246,205 @@ return {
     end,
 
     config = function()
-        -- The way that this works is you need a jupyter kernel spec with the
-        -- same name as your current virtual environment.
-        vim.keymap.set(
-            "n",
-            "<leader>mai",
-            function()
-                local venv = os.getenv("VIRTUAL_ENV")
-                if venv ~= nil then
-                    venv = string.match(venv, "/.+/(.+)")
-                    vim.cmd(("MoltenInit %s"):format(venv))
-                else
-                    vim.cmd("MoltenInit python3")
-                end
-            end,
-            {
-                silent = true,
-                desc = "Automatically initializes molten.",
-            }
-        )
-
-        -- vim.keymap.set("n", "<leader>m", ":MoltenDeinit<CR>", {silent = true, desc = "De-initialize the plugin"})
-
-        vim.keymap.set(
-            "n",
-            "<leader>md",
-            ":MoltenDelete<CR>",
-            {
-                silent = true,
-                desc = "Deletes a molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>meo",
-            ":noautocmd MoltenEnterOutput<CR>",
-            {
-                silent = true,
-                desc = "Enters the output window of a molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mea",
-            ":MoltenEvaluateArgument<CR>",
-            {
-                silent = true,
-                desc = "Evaluates an argument (molten).",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mel",
-            ":MoltenEvaluateLine<CR>",
-            {
-                silent = true,
-                desc = "Evaluates current line (molten).",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>meO",
-            ":MoltenEvaluateOperator<CR>",
-            {
-                silent = true,
-                desc = "Activates the molten evaluation operator.",
-            }
-        )
-
-        vim.keymap.set(
-            "v",
-            "<leader>mev",
-            ":<C-u>MoltenEvaluateVisual<CR>gv",
-            {
-                silent = true,
-                desc = "Evaluates a visual selection (molten).",
-            }
-        )
-
-        -- vim.keymap.set("n", "<leader>m", ":MoltenExportOutput<CR>", {silent = true, desc = "Export output"})
-
-        vim.keymap.set(
-            "n",
-            "<leader>mg",
-            ":MoltenGoto<CR>",
-            {
-                silent = true,
-                desc = "Goes to the nth molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mho",
-            ":MoltenHideOutput<CR>",
-            {
-                silent = true,
-                desc = "Hides the output window of the current molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mip",
-            ":MoltenImagePopup<CR>",
-            {
-                silent = true,
-                desc = "Opens any images generated by a molten cell in an appropriate program (uses xdg-open).",
-            }
-        )
-
-        -- vim.keymap.set("n", "<leader>m", ":MoltenImportOutput<CR>", {silent = true, desc = ""})
-        -- vim.keymap.set("n", "<leader>m", ":MoltenInfo<CR>", {silent = true, desc = "Shows essential information about the plugin"})
-
-        vim.keymap.set(
-            "n",
-            "<leader>mi",
-            ":MoltenInit<CR>",
-            {
-                silent = true,
-                desc = "Initializes Molten.",
-            }
-        )
-
-        -- vim.keymap.set("n", "<leader>m", ":MoltenInterrupt<CR>", {silent = true, desc = ""})
-        -- vim.keymap.set("n", "<leader>m", ":MoltenLoad<CR>", {silent = true, desc = ""})
-
-        vim.keymap.set(
-            "n",
-            "<leader>mj",
-            ":MoltenNext<CR>",
-            {
-                silent = true,
-                desc = "Goes to the next molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>moib",
-            ":MoltenOpenInBrowser<CR>",
-            {
-                silent = true,
-                desc = "Opens output window in the browser using html (molten).",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mk",
-            ":MoltenPrev<CR>",
-            {
-                silent = true,
-                desc = "Goes to the previous molten cell.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mra",
-            ":MoltenReevaluateAll<CR>",
-            {
-                silent = true,
-                desc = "Reevaluates all molten cells.",
-            }
-        )
-
-        vim.keymap.set(
-            "n",
-            "<leader>mrc",
-            ":MoltenReevaluateCell<CR>",
-            {
-                silent = true,
-                desc = "Reevaluates the current molten cell.",
-            }
-        )
-
-        -- vim.keymap.set("n", "<leader>m", ":MoltenRestart<CR>", {silent = true, desc = ""})
-        -- vim.keymap.set("n", "<leader>m", ":MoltenSave<CR>", {silent = true, desc = ""})
-
-        vim.keymap.set(
-            "n",
-            "<leader>mso",
-            ":MoltenShowOutput<CR>",
-            {
-                silent = true,
-                desc = "Shows the output window of current molten cell.",
-            }
-        )
-
+    --     -- The way that this works is you need a jupyter kernel spec with the
+    --     -- same name as your current virtual environment.
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mai",
+    --         function()
+    --             local venv = os.getenv("VIRTUAL_ENV")
+    --             if venv ~= nil then
+    --                 venv = string.match(venv, "/.+/(.+)")
+    --                 vim.cmd(("MoltenInit %s"):format(venv))
+    --             else
+    --                 vim.cmd("MoltenInit python3")
+    --             end
+    --         end,
+    --         {
+    --             silent = true,
+    --             desc = "Automatically initializes molten.",
+    --         }
+    --     )
+    --
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenDeinit<CR>", {silent = true, desc = "De-initialize the plugin"})
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>md",
+    --         ":MoltenDelete<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Deletes a molten cell.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>meo",
+    --         ":noautocmd MoltenEnterOutput<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Enters the output window of a molten cell.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mea",
+    --         ":MoltenEvaluateArgument<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Evaluates an argument (molten).",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mel",
+    --         ":MoltenEvaluateLine<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Evaluates current line (molten).",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>meO",
+    --         ":MoltenEvaluateOperator<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Activates the molten evaluation operator.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "v",
+    --         "<leader>mev",
+    --         ":<C-u>MoltenEvaluateVisual<CR>gv",
+    --         {
+    --             silent = true,
+    --             desc = "Evaluates a visual selection (molten).",
+    --         }
+    --     )
+    --
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenExportOutput<CR>", {silent = true, desc = "Export output"})
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mg",
+    --         ":MoltenGoto<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Goes to the nth molten cell.",
+    --         }
+    --     )
+    --en prefixed with : it is a Neovim command. You 
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mho",
+    --         ":MoltenHideOutput<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Hides the output window of the current molten cell.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mip",
+    --         ":MoltenImagePopup<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Opens any images generated by a molten cell in an appropriate program (uses xdg-open).",
+    --         }
+    --     )
+    --
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenImportOutput<CR>", {silent = true, desc = ""})
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenInfo<CR>", {silent = true, desc = "Shows essential information about the plugin"})
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mi",
+    --         ":MoltenInit<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Initializes Molten.",
+    --         }
+    --     )
+    --
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenInterrupt<CR>", {silent = true, desc = ""})
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenLoad<CR>", {silent = true, desc = ""})
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mj",
+    --         ":MoltenNext<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Goes to the next molten cell.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>moib",
+    --         ":MoltenOpenInBrowser<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Opens output window in the browser using html (molten).",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mk",
+    --         ":MoltenPrev<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Goes to the previous molten cell.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mra",
+    --         ":MoltenReevaluateAll<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Reevaluates all molten cells.",
+    --         }
+    --     )
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mrc",
+    --         ":MoltenReevaluateCell<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Reevaluates the current molten cell.",
+    --         }
+    --     )
+    --
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenRestart<CR>", {silent = true, desc = ""})
+    --     -- vim.keymap.set("n", "<leader>m", ":MoltenSave<CR>", {silent = true, desc = ""})
+    --
+    --     vim.keymap.set(
+    --         "n",
+    --         "<leader>mso",
+    --         ":MoltenShowOutput<CR>",
+    --         {
+    --             silent = true,
+    --             desc = "Shows the output window of current molten cell.",
+    --         }
+    --     )
+    --
+        local runner = require("quarto.runner")
+        vim.keymap.set("n", "<localleader>rc", runner.run_cell,  { desc = "run cell", silent = true })
+        vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "run cell and above", silent = true })
+        vim.keymap.set("n", "<localleader>rA", runner.run_all,   { desc = "run all cells", silent = true })
+        vim.keymap.set("n", "<localleader>rl", runner.run_line,  { desc = "run line", silent = true })
+        vim.keymap.set("v", "<localleader>r",  runner.run_range, { desc = "run visual range", silent = true })
+        vim.keymap.set("n", "<localleader>RA", function() runner.run_all(true) end, { desc = "run all cells of all languages", silent = true })
     end,
 }
