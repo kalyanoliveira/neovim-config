@@ -60,14 +60,6 @@ return {
             },
             config = function()
                 require("otter").setup({})
-                local cmpconfig = require("cmp").get_config()
-                table.insert(
-                    cmpconfig.sources,
-                    {
-                        name = "otter"
-                    }
-                )
-                require("cmp").setup(cmpconfig)
                 vim.keymap.set(
                     "n",
                     "<localleader>oa",
@@ -145,6 +137,7 @@ return {
                     enabled = true,
                     default_method = "molten"
                 },
+                -- These are essentially just otter.nvim keybinds that are done for us.
                 keymap = {
                     hover = "K",
                     definition = "gd",
@@ -229,7 +222,7 @@ return {
         -- is useful for running code in a markdown file where that covered
         -- line will just be ```).
         -- Default: false
-        vim.g.molten_virt_lines_off_by_1 = true
+        vim.g.molten_virt_lines_off_by_1 = false
 
         -- If true, show output as virtual text below the cell. Virtual text
         -- stays after leaving the cell. Also, if true, the output window

@@ -1,6 +1,10 @@
 return {
     "nvim-treesitter/nvim-treesitter",
 
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+
     build = ":TSUpdate",
 
     opts = {
@@ -38,6 +42,28 @@ return {
                 "ruby",
             }
         },
+
+        -- Adds in a markdown code block text object.
+        textobjects = {
+            move = {
+                enable = true,
+                set_jumps = false,
+                goto_next_start = {
+                    ["]c"] = { query = "@code_cell.inner", desc = "next code block" },
+                },
+                goto_previous_start = {
+                    ["[c"] = { query = "@code_cell.inner", desc = "previous code block" },
+                },
+            },
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["ic"] = { query = "@code_cell.inner", desc = "in block" },
+                    ["ac"] = { query = "@code_cell.outer", desc = "around block" },
+                },
+            },
+        }
     },
 
     config = function(_, opts)

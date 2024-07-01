@@ -58,8 +58,34 @@ return {
                     {
                         ["<C-n>"] = require("cmp").mapping.select_next_item(),
                         ["<C-p>"] = require("cmp").mapping.select_prev_item(),
-                        ["<C-y>"] = require("cmp").mapping.confirm({ select = true }),
+                        ["<C-y>"] = require("cmp").mapping.confirm(
+                            {
+                                select = true
+                            }
+                        ),
                         ["<C-Space>"] = require("cmp").mapping.complete({}),
+                        ["<C-l>"] = require("cmp").mapping(
+                            function()
+                                if require("luasnip").expand_or_locally_jumpable() then
+                                    require("luasnip").expand_or_jump()
+                                end
+                            end,
+                            {
+                                "i",
+                                "s"
+                            }
+                        ),
+                        ["<C-h>"] = require("cmp").mapping(
+                            function()
+                                if require("luasnip").locally_jumpable(-1) then
+                                    require("luasnip").jump(-1)
+                                end
+                            end,
+                            {
+                                "i",
+                                "s"
+                            }
+                        ),
                     }
                 ),
 
@@ -67,6 +93,7 @@ return {
                     {
                         { name = "nvim_lsp" },
                         { name = "luasnip" },
+                        { name = "otter" },
                     },
                     {
                         { name = "buffer" },

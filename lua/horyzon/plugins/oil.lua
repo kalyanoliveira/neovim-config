@@ -4,6 +4,7 @@ return {
     opts = {
         keymaps = {
             ["<C-p>"] = false,
+            ["<Esc>"] = "actions.close",
         },
         view_options = {
             show_hidden = true,
