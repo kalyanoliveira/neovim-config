@@ -2,16 +2,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = [[\]]
 
--- Creates a keybind for opening up netrw.
-vim.keymap.set(
-    "n",
-    "<leader>rw",
-    vim.cmd.Ex,
-    {
-        desc = "Opens netrw.",
-    }
-)
-
 -- Gives me a way to access tmux sessionizer from inside neovim.
 vim.keymap.set(
     "n",

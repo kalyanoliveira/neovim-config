@@ -157,6 +157,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>gr",
@@ -166,6 +167,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>gi",
@@ -175,6 +177,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>gt",
@@ -184,6 +187,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>gs",
@@ -193,6 +197,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>sd",
@@ -202,6 +207,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>sw",
@@ -211,6 +217,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<F2>",
@@ -220,6 +227,7 @@ return {
                             buffer = event.buf,
                         }
                     )
+
                     vim.keymap.set(
                         "n",
                         "<leader>vca",
@@ -242,6 +250,35 @@ return {
                         "n",
                         "gD",
                         vim.lsp.buf.declaration,
+                        {
+                            desc = "Goes to declaration of word under cursor.",
+                            buffer = event.buf,
+                        }
+                    )
+                    vim.keymap.set(
+                        "n",
+                        "<space>wa",
+                        vim.lsp.buf.add_workspace_folder,
+                        {
+                            desc = "Adds a folder to the current workspace.",
+                            buffer = event.buf,
+                        }
+                    )
+                    vim.keymap.set(
+                        "n",
+                        "<space>wr",
+                        vim.lsp.buf.remove_workspace_folder,
+                        {
+                            desc = "Goes to declaration of word under cursor.",
+                            buffer = event.buf,
+                        }
+                    )
+                    vim.keymap.set(
+                        "n",
+                        "<space>wl",
+                        function()
+                            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                        end,
                         {
                             desc = "Goes to declaration of word under cursor.",
                             buffer = event.buf,
@@ -273,6 +310,14 @@ return {
             vim.diagnostic.open_float,
             {
                 desc = "Shows diagnostics in a floating window."
+            }
+        )
+        vim.keymap.set(
+            "n",
+            "<space>q",
+            vim.diagnostic.setloclist,
+            {
+                desc = "Opens quickfix?",
             }
         )
 

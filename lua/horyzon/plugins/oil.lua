@@ -1,17 +1,22 @@
 return {
+
     "stevearc/oil.nvim",
 
     opts = {
+
         keymaps = {
             ["<C-p>"] = false,
             ["<Esc>"] = "actions.close",
         },
+
         view_options = {
             show_hidden = true,
         }
+
     },
 
     config = function(_, opts)
+
         require("oil").setup(opts)
 
         vim.keymap.set(
@@ -22,5 +27,7 @@ return {
                 desc = "Opens up oil.nvim's explorer at the parent folder of the current buffer.",
             }
         )
+
     end
+
 }
