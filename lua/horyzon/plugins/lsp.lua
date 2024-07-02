@@ -44,7 +44,6 @@ return {
                     end,
                 },
 
-
                 completion = {
                     completeopt = "menu,menuone,noinsert",
                 },
@@ -93,7 +92,6 @@ return {
                     {
                         { name = "nvim_lsp" },
                         { name = "luasnip" },
-                        { name = "otter" },
                     },
                     {
                         { name = "buffer" },
@@ -149,77 +147,77 @@ return {
                     }
                 ),
 
-                callback = function()
+                callback = function(event)
                     vim.keymap.set(
                         "n",
                         "gd",
                         require("telescope.builtin").lsp_definitions,
                         {
                             desc = "Fuzzy finds over definitions of word under the cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "gr",
+                        "<leader>gr",
                         require("telescope.builtin").lsp_references,
                         {
                             desc = "Fuzzy finds over references of the word under your cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "gi",
+                        "<leader>gi",
                         require("telescope.builtin").lsp_implementations,
                         {
                             desc = "Fuzzy finds over implementations of the word under your cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "gt",
+                        "<leader>gt",
                         require("telescope.builtin").lsp_type_definitions,
                         {
                             desc = "Fuzzy finds over type definitions of the word under your cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "gs",
+                        "<leader>gs",
                         vim.lsp.buf.signature_help,
                         {
                             desc = "Shows signature help for the word under the cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "<leader>sds",
+                        "<leader>sd",
                         require("telescope.builtin").lsp_document_symbols,
                         {
                             desc = "Fuzzy finds all the symbols in your current document.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "<leader>sws",
+                        "<leader>sw",
                         require("telescope.builtin").lsp_dynamic_workspace_symbols,
                         {
                             desc = "Fuzzy finds all the symbols in your current workspace.",
-
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
                         "n",
-                        "<leader>r",
+                        "<F2>",
                         vim.lsp.buf.rename,
                         {
                             desc = "Renames the variable under your cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
@@ -228,7 +226,7 @@ return {
                         vim.lsp.buf.code_action,
                         {
                             desc = "Shows possible code actions for solving the error under your cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
@@ -237,7 +235,7 @@ return {
                         vim.lsp.buf.hover,
                         {
                             desc = "Opens a popup that displays documentation about word under cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                     vim.keymap.set(
@@ -246,7 +244,7 @@ return {
                         vim.lsp.buf.declaration,
                         {
                             desc = "Goes to declaration of word under cursor.",
-                            buffer = true,
+                            buffer = event.buf,
                         }
                     )
                 end,
@@ -255,7 +253,7 @@ return {
 
         vim.keymap.set(
             "n",
-            "<leader>dj",
+            "[d",
             vim.diagnostic.goto_next,
             {
                 desc = "Goes to the next error.",
@@ -263,7 +261,7 @@ return {
         )
         vim.keymap.set(
             "n",
-            "<leader>dk",
+            "]d",
             vim.diagnostic.goto_prev,
             {
                 desc = "Goes to the previous error.",
